@@ -149,7 +149,7 @@
 -(void) handleSudoClick:(id)sender {
     [self stop];
     NSButton *b = (NSButton *)sender;
-    if (b.state == NSOnState) {
+    if (b.state == NSControlStateValueOn) {
         self.service.useSudo = YES;
     } else {
         self.service.useSudo = NO;
@@ -163,7 +163,7 @@
 
 -(void) handleRunAtLoginClick:(id)sender {
     NSButton *b = (NSButton *)sender;
-    if (b.state == NSOnState) {
+    if (b.state == NSControlStateValueOn) {
         self.service.runAtLogin = YES;
     } else {
         self.service.runAtLogin = NO;

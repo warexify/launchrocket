@@ -126,7 +126,7 @@
         [brewPicker setDirectoryURL:[NSURL URLWithString:@"/usr"]];
         
         NSInteger clicked = [brewPicker runModal];
-        if (clicked == NSFileHandlingPanelOKButton) {
+        if (clicked == NSModalResponseOK) {
             NSString *selectedHomebrewPrefix = [[brewPicker URL] path];
             NSLog(@"User selected %@", selectedHomebrewPrefix);
             if ([fm fileExistsAtPath:[NSString stringWithFormat:@"%@/bin/brew", selectedHomebrewPrefix]]) {
@@ -142,7 +142,7 @@
         NSAlert *alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"OK"];
         [alert setMessageText:@"We couldn't find your homebrew prefix at the path you selected"];
-        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setAlertStyle:NSAlertStyleWarning];
         [alert beginSheetModalForWindow:[self.serviceParent window] completionHandler:nil];
         NSLog(@"Unable to get Hombrew prefix");
         return;
@@ -194,7 +194,7 @@
     [filePicker setAllowsMultipleSelection:NO];
     
     NSInteger clicked = [filePicker runModal];
-    if (clicked == NSFileHandlingPanelOKButton) {
+    if (clicked == NSModalResponseOK) {
         NSString *plistFile = [[filePicker URL] path];
         [self addService:plistFile];
         [self cleanServices];
@@ -295,7 +295,7 @@
         [serviceList addSubview:name];
         
         NSButton *startStop = [[NSButton alloc] initWithFrame:NSMakeRect(190, listOffsetPixels, 50, 30)];
-        [startStop setBezelStyle:NSTexturedRoundedBezelStyle];
+        [startStop setBezelStyle:NSBezelStyleTexturedRounded];
         [startStop setTarget:sc];
         [startStop setAction:@selector(handleStartStopClick:)];
         sc.startStop = startStop;
@@ -303,27 +303,27 @@
         [serviceList addSubview:startStop];
     
         NSButton *sudo = [[NSButton alloc] initWithFrame:NSMakeRect(260, listOffsetPixels - 1, 80, 30)];
-        [sudo setButtonType:NSSwitchButton];
+        [sudo setButtonType:NSButtonTypeSwitch];
         [sudo setTitle:@"As Root"];
         [sudo setTarget:sc];
         [sudo setAction:@selector(handleSudoClick:)];
         if (sc.service.useSudo) {
-            [sudo setState:NSOnState];
+            [sudo setState:NSControlStateValueOn];
         }
         [serviceList addSubview:sudo];
         
         NSButton *runAtLogin = [[NSButton alloc] initWithFrame:NSMakeRect(330, listOffsetPixels - 1, 80, 30)];
-        [runAtLogin setButtonType:NSSwitchButton];
+        [runAtLogin setButtonType:NSButtonTypeSwitch];
         [runAtLogin setTitle:@"At Login"];
         [runAtLogin setTarget:sc];
         [runAtLogin setAction:@selector(handleRunAtLoginClick:)];
         if (sc.service.runAtLogin) {
-            [runAtLogin setState:NSOnState];
+            [runAtLogin setState:NSControlStateValueOn];
         }
         [serviceList addSubview:runAtLogin];
         
         NSButton *remove = [[NSButton alloc] initWithFrame:NSMakeRect(410, listOffsetPixels, 70, 30)];
-        [remove setBezelStyle:NSTexturedRoundedBezelStyle];
+        [remove setBezelStyle:NSBezelStyleTexturedRounded];
         [remove setTitle:@"Remove"];
         [remove setTarget:sc];
         [remove setAction:@selector(handleRemoveClick:)];
